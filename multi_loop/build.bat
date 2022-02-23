@@ -1,1 +1,0 @@
-nasm -f win64 main.asm && gcc -m64 main.obj -s -o main.exe && main.exe

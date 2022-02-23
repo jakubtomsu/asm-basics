@@ -27,10 +27,13 @@ default rel
 
 %define NEWLINE	0xd, 0xa
 
+
 segment .text
 	global main
 	extern ExitProcess
 	extern printf
+
+
 
 main:
 	push	rbp
@@ -39,19 +42,20 @@ main:
 
 	mov	ebx, 32 ; message counter, now set to default message count
 	print_loop:
-		sub	ebx, 1
-		cmp	ebx, 0 ; changes ZF (zero flag)
-		jz	_exit ; jump if ZF is zero
-		; else print message
+		; print message
 		lea	rcx, [message]
 		call	printf
-		jmp print_loop
+		; go to start of the loop if counter isn't zero
+		sub	ebx, 1 ; subtract
+		cmp	ebx, 0 ; changes ZF (zero flag)
+		jnz	print_loop ; jump if ZF is zero
 
-_exit:
+	; exit program
 	push	rax
 	call	ExitProcess
 
 
+
 ; read-only data section
 segment .rodata
-	message db "hello world!", 0xd, 0xa, 0
+	message db "hello loop!", 0xd, 0xa, 0
