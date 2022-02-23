@@ -1,0 +1,1 @@
+nasm -f win64 basic_loops.asm && gcc -m64 basic_loops.obj -s -o basic_loops.exe && basic_loops.exe

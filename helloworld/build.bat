@@ -1,0 +1,1 @@
+nasm -f win64 helloworld.asm && gcc -m64 helloworld.obj -s -o helloworld.exe && helloworld.exe
